@@ -72,8 +72,20 @@ uint8_t growattIF::ReadInputRegisters(char* json) {
       // Output
       modbusdata.outputpower = ((growattInterface.getResponseBuffer(35) << 16) | growattInterface.getResponseBuffer(36)) * 0.1;
       modbusdata.gridfrequency = growattInterface.getResponseBuffer(37) * 0.01;
-      modbusdata.gridvoltage = growattInterface.getResponseBuffer(38) * 0.1;
-
+      //Phases
+      modbusdata.ph1voltage = growattInterface.getResponseBuffer(38) * 0.1;
+      modbusdata.ph1current = growattInterface.getResponseBuffer(39) * 0.1;
+      modbusdata.ph1power = ((growattInterface.getResponseBuffer(40) << 16) | growattInterface.getResponseBuffer(41)) * 0.1;
+      modbusdata.ph2voltage = growattInterface.getResponseBuffer(42) * 0.1;
+      modbusdata.ph2current = growattInterface.getResponseBuffer(43) * 0.1;
+      modbusdata.ph2power = ((growattInterface.getResponseBuffer(44) << 16) | growattInterface.getResponseBuffer(45)) * 0.1;
+      modbusdata.ph3voltage = growattInterface.getResponseBuffer(46) * 0.1;
+      modbusdata.ph3current = growattInterface.getResponseBuffer(47) * 0.1;
+      modbusdata.ph3power = ((growattInterface.getResponseBuffer(48) << 16) | growattInterface.getResponseBuffer(49)) * 0.1; 
+      //Line voltage
+      modbusdata.lineph1voltage = growattInterface.getResponseBuffer(50) * 0.1;
+      modbusdata.lineph2voltage = growattInterface.getResponseBuffer(51) * 0.1;      
+      modbusdata.lineph3voltage = growattInterface.getResponseBuffer(52) * 0.1; 
       // Energy
       modbusdata.energytoday = ((growattInterface.getResponseBuffer(53) << 16) | growattInterface.getResponseBuffer(54)) * 0.1;
       modbusdata.energytotal = ((growattInterface.getResponseBuffer(55) << 16) | growattInterface.getResponseBuffer(56)) * 0.1;
@@ -193,7 +205,19 @@ uint8_t growattIF::ReadInputRegisters(char* json) {
 
       sprintf(json, "%s \"outputpower\":%.1f,", json, modbusdata.outputpower);
       sprintf(json, "%s \"gridfrequency\":%.2f,", json, modbusdata.gridfrequency);
-      sprintf(json, "%s \"gridvoltage\":%.1f,", json, modbusdata.gridvoltage);
+      sprintf(json, "%s \"ph1voltage\":%.1f,", json, modbusdata.ph1voltage);
+      sprintf(json, "%s \"ph1current\":%.1f,", json, modbusdata.ph1current);
+      sprintf(json, "%s \"ph1power\":%.1f,", json, modbusdata.ph1power);
+      sprintf(json, "%s \"ph2voltage\":%.1f,", json, modbusdata.ph2voltage);
+      sprintf(json, "%s \"ph2current\":%.1f,", json, modbusdata.ph2current);
+      sprintf(json, "%s \"ph2power\":%.1f,", json, modbusdata.ph2power);
+      sprintf(json, "%s \"ph3voltage\":%.1f,", json, modbusdata.ph3voltage);
+      sprintf(json, "%s \"ph3current\":%.1f,", json, modbusdata.ph3current);
+      sprintf(json, "%s \"ph3power\":%.1f,", json, modbusdata.ph3power);
+
+      sprintf(json, "%s \"lineph1voltage\":%.1f,", json, modbusdata.lineph1voltage);
+      sprintf(json, "%s \"lineph2voltage\":%.1f,", json, modbusdata.lineph2voltage);
+      sprintf(json, "%s \"lineph3voltage\":%.1f,", json, modbusdata.lineph3voltage);
 
       sprintf(json, "%s \"energytoday\":%.1f,", json, modbusdata.energytoday);
       sprintf(json, "%s \"energytotal\":%.1f,", json, modbusdata.energytotal);
